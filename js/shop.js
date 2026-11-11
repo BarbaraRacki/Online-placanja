@@ -131,7 +131,7 @@ function fromHash(first = false) {
 window.addEventListener("hashchange", () => {
   fromHash();
   const hsh = location.hash.slice(1);
-  if (hsh.startsWith("k/") || hsh === "akcije") $("#katalog").scrollIntoView({ behavior: "smooth", block: "start" });
+  if (hsh.startsWith("k/") || hsh === "akcije") $(".products").scrollIntoView({ behavior: "smooth", block: "start" });
 });
 
 // ---------- Popis proizvoda ----------
@@ -239,12 +239,10 @@ function openProduct(p) {
 // ---------- Kategorije na mobitelu ----------
 function openCats(open) {
   $("#sidebar").classList.toggle("open", open);
-  $("#sidebarBg").hidden = !open;
-  document.body.classList.toggle("noscroll", open);
+  $("#openCats").textContent = open ? "✕ Zatvori kategorije" : "☰ Kategorije";
+  if (open && matchMedia("(max-width: 900px)").matches) $("#sidebar").scrollIntoView({ behavior: "smooth", block: "start" });
 }
-$("#openCats").addEventListener("click", () => openCats(true));
-$("#closeCats").addEventListener("click", () => openCats(false));
-$("#sidebarBg").addEventListener("click", () => openCats(false));
+$("#openCats").addEventListener("click", () => openCats(!$("#sidebar").classList.contains("open")));
 
 // ---------- Košarica ----------
 function loadCart() {

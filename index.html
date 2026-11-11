@@ -51,21 +51,19 @@
   </section>
 
   <main id="katalog" class="inner catalog">
+    <button class="btn only-mobile cats-toggle" id="openCats">☰ Kategorije</button>
     <aside class="sidebar" id="sidebar" aria-label="Kategorije">
       <div class="sidebar-head">
         <h2>Kategorije</h2>
-        <button class="icon-btn only-mobile" id="closeCats" aria-label="Zatvori">✕</button>
       </div>
       <nav id="catNav"></nav>
     </aside>
-    <div id="sidebarBg" class="drawer-bg" hidden></div>
 
     <section class="products">
       <div class="crumbs muted small" id="crumbs"></div>
       <div class="products-head">
         <h2 id="listTitle">Svi proizvodi</h2>
         <div class="products-tools">
-          <button class="btn small only-mobile" id="openCats">☰ Kategorije</button>
           <select id="sort" aria-label="Poredaj">
             <option value="default">Preporučeno</option>
             <option value="price-asc">Cijena ↑</option>
