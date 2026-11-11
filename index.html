@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Trgovina</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="config.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">◆</span>
+      <div>
+        <h1 id="shopName">Trgovina</h1>
+        <p id="tagline" class="muted small"></p>
+      </div>
+    </div>
+    <button id="cartBtn" class="cart-btn" aria-label="Košarica">
+      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
+      <span id="cartCount" class="badge" hidden>0</span>
+    </button>
+  </header>
+
+  <div id="demoBanner" class="banner" hidden>
+    Demo način — baza još nije povezana. Ovo su primjeri proizvoda. Upute su u README datoteci.
+  </div>
+
+  <main class="wrap">
+    <div class="toolbar">
+      <input id="search" type="search" placeholder="Pretraži proizvode…" aria-label="Pretraži proizvode">
+      <select id="sort" aria-label="Poredaj">
+        <option value="default">Preporučeno</option>
+        <option value="price-asc">Cijena ↑</option>
+        <option value="price-desc">Cijena ↓</option>
+        <option value="name">Naziv A–Ž</option>
+      </select>
+    </div>
+    <div id="grid" class="grid" aria-live="polite">
+      <p class="muted center">Učitavam proizvode…</p>
+    </div>
+  </main>
+
+  <!-- Detalji proizvoda -->
+  <dialog id="productDlg" class="sheet">
+    <div id="productBody"></div>
+  </dialog>
+
+  <!-- Košarica -->
+  <div id="drawerBg" class="drawer-bg" hidden></div>
+  <aside id="drawer" class="drawer" aria-label="Košarica" aria-hidden="true">
+    <div class="drawer-head">
+      <h2>Košarica</h2>
+      <button class="icon-btn" id="closeCart" aria-label="Zatvori">✕</button>
+    </div>
+    <div id="cartItems" class="cart-items"></div>
+    <div class="drawer-foot">
+      <div class="row"><span>Međuzbroj</span><strong id="subtotal">0</strong></div>
+      <div class="row muted small"><span>Dostava</span><span id="shipping">0</span></div>
+      <div class="row total"><span>Ukupno</span><strong id="total">0</strong></div>
+      <button id="checkoutBtn" class="btn primary block" disabled>Na blagajnu</button>
+    </div>
+  </aside>
+
+  <!-- Blagajna -->
+  <dialog id="checkoutDlg" class="sheet">
+    <form id="checkoutForm" method="dialog" novalidate>
+      <div class="sheet-head">
+        <h2>Blagajna</h2>
+        <button type="button" class="icon-btn" data-close aria-label="Zatvori">✕</button>
+      </div>
+      <fieldset>
+        <legend>Podaci za dostavu</legend>
+        <label>Ime i prezime<input name="name" required autocomplete="name"></label>
+        <label>Email<input name="email" type="email" required autocomplete="email"></label>
+        <label>Telefon<input name="phone" type="tel" autocomplete="tel"></label>
+        <label>Adresa<input name="address" required autocomplete="street-address"></label>
+        <div class="two">
+          <label>Poštanski broj<input name="zip" required inputmode="numeric" autocomplete="postal-code"></label>
+          <label>Grad<input name="city" required autocomplete="address-level2"></label>
+        </div>
+        <label>Napomena<textarea name="note" rows="2"></textarea></label>
+      </fieldset>
+      <fieldset>
+        <legend>Plaćanje</legend>
+        <label class="radio"><input type="radio" name="pay" value="card" checked> Kartica <span class="tag">uskoro</span></label>
+        <label class="radio"><input type="radio" name="pay" value="cod"> Pouzeće</label>
+        <label class="radio"><input type="radio" name="pay" value="bank"> Uplata na račun</label>
+        <div class="card-mock" id="cardMock">
+          <input disabled placeholder="Broj kartice">
+          <div class="two"><input disabled placeholder="MM/GG"><input disabled placeholder="CVC"></div>
+          <p class="muted small">Plaćanje karticom bit će uključeno uskoro.</p>
+        </div>
+      </fieldset>
+      <div class="summary" id="checkoutSummary"></div>
+      <button class="btn primary block" type="submit">Potvrdi narudžbu</button>
+      <p class="muted small center">Demo: narudžba se ne naplaćuje i ne šalje.</p>
+    </form>
+  </dialog>
+
+  <!-- Potvrda -->
+  <dialog id="doneDlg" class="sheet narrow">
+    <div class="center">
+      <div class="done-mark">✓</div>
+      <h2>Hvala na narudžbi!</h2>
+      <p id="doneText" class="muted"></p>
+      <button class="btn primary" data-close>Nastavi kupovinu</button>
+    </div>
+  </dialog>
+
+  <footer class="foot muted small">
+    <span id="footName"></span> · <a href="admin.html">Administracija</a>
+  </footer>
+
+  <script type="module" src="js/shop.js"></script>
+</body>
+</html>
