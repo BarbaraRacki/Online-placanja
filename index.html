@@ -3,47 +3,104 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#ffffff">
-  <title>Trgovina</title>
+  <meta name="theme-color" content="#1b1b1b">
+  <meta name="description" content="Web trgovina — STIHL uređaji, pribor, zaštitna oprema, kosilice i agregati. Krk i Ogulin.">
+  <title>Web trgovina</title>
   <link rel="stylesheet" href="css/styles.css">
   <script src="config.js"></script>
 </head>
 <body>
+  <div class="topstrip">
+    <div class="inner" id="topstrip"></div>
+  </div>
+
   <header class="topbar">
-    <div class="brand">
-      <span class="logo" aria-hidden="true">◆</span>
-      <div>
-        <h1 id="shopName">Trgovina</h1>
-        <p id="tagline" class="muted small"></p>
+    <div class="inner">
+      <a href="#" class="brand" id="brandLink">
+        <span class="logo-mark" aria-hidden="true">Ž</span>
+        <span class="brand-text"><strong id="shopName">Žaga</strong><small>web trgovina</small></span>
+      </a>
+      <nav class="mainnav" aria-label="Glavni izbornik">
+        <a href="#katalog">Katalog</a>
+        <a href="#akcije" id="navSale" hidden>Akcije</a>
+        <a href="#kontakt">Kontakt</a>
+      </nav>
+      <div class="search-wrap">
+        <input id="search" type="search" placeholder="Pretraži proizvode…" aria-label="Pretraži proizvode">
       </div>
+      <button id="cartBtn" class="cart-btn" aria-label="Košarica">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
+        <span id="cartCount" class="badge" hidden>0</span>
+      </button>
     </div>
-    <button id="cartBtn" class="cart-btn" aria-label="Košarica">
-      <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
-      <span id="cartCount" class="badge" hidden>0</span>
-    </button>
   </header>
 
   <div id="demoBanner" class="banner" hidden>
-    Demo način — baza još nije povezana. Ovo su primjeri proizvoda. Upute su u README datoteci.
+    Demo način — baza još nije povezana. Kategorije su s kataloga, a proizvodi su samo primjeri.
   </div>
 
-  <main class="wrap">
-    <div class="toolbar">
-      <input id="search" type="search" placeholder="Pretraži proizvode…" aria-label="Pretraži proizvode">
-      <select id="sort" aria-label="Poredaj">
-        <option value="default">Preporučeno</option>
-        <option value="price-asc">Cijena ↑</option>
-        <option value="price-desc">Cijena ↓</option>
-        <option value="name">Naziv A–Ž</option>
-      </select>
+  <section class="hero">
+    <div class="inner">
+      <h1 id="heroTitle"></h1>
+      <p id="heroText"></p>
+      <div class="hero-actions">
+        <a href="#katalog" class="btn primary">Pogledaj katalog</a>
+        <a href="#kontakt" class="btn outline-light">Kontakt i radno vrijeme</a>
+      </div>
     </div>
-    <div id="grid" class="grid" aria-live="polite">
-      <p class="muted center">Učitavam proizvode…</p>
-    </div>
+  </section>
+
+  <main id="katalog" class="inner catalog">
+    <aside class="sidebar" id="sidebar" aria-label="Kategorije">
+      <div class="sidebar-head">
+        <h2>Kategorije</h2>
+        <button class="icon-btn only-mobile" id="closeCats" aria-label="Zatvori">✕</button>
+      </div>
+      <nav id="catNav"></nav>
+    </aside>
+    <div id="sidebarBg" class="drawer-bg" hidden></div>
+
+    <section class="products">
+      <div class="crumbs muted small" id="crumbs"></div>
+      <div class="products-head">
+        <h2 id="listTitle">Svi proizvodi</h2>
+        <div class="products-tools">
+          <button class="btn small only-mobile" id="openCats">☰ Kategorije</button>
+          <select id="sort" aria-label="Poredaj">
+            <option value="default">Preporučeno</option>
+            <option value="price-asc">Cijena ↑</option>
+            <option value="price-desc">Cijena ↓</option>
+            <option value="name">Naziv A–Ž</option>
+          </select>
+        </div>
+      </div>
+      <div id="subcats" class="chips"></div>
+      <div id="grid" class="grid" aria-live="polite">
+        <p class="muted center">Učitavam proizvode…</p>
+      </div>
+    </section>
   </main>
 
+  <section id="kontakt" class="contact">
+    <div class="inner">
+      <h2>Kontakt</h2>
+      <div class="loc-grid" id="locations"></div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <div class="inner foot-inner">
+      <span id="footName"></span>
+      <span class="foot-links">
+        <a id="footMail" href="#"></a>
+        <a id="footFb" href="#" target="_blank" rel="noopener">Facebook</a>
+        <a href="admin.html">Administracija</a>
+      </span>
+    </div>
+  </footer>
+
   <!-- Detalji proizvoda -->
-  <dialog id="productDlg" class="sheet">
+  <dialog id="productDlg" class="sheet wide">
     <div id="productBody"></div>
   </dialog>
 
@@ -65,7 +122,7 @@
 
   <!-- Blagajna -->
   <dialog id="checkoutDlg" class="sheet">
-    <form id="checkoutForm" method="dialog" novalidate>
+    <form id="checkoutForm" novalidate>
       <div class="sheet-head">
         <h2>Blagajna</h2>
         <button type="button" class="icon-btn" data-close aria-label="Zatvori">✕</button>
@@ -83,10 +140,11 @@
         <label>Napomena<textarea name="note" rows="2"></textarea></label>
       </fieldset>
       <fieldset>
-        <legend>Plaćanje</legend>
+        <legend>Preuzimanje i plaćanje</legend>
         <label class="radio"><input type="radio" name="pay" value="card" checked> Kartica <span class="tag">uskoro</span></label>
         <label class="radio"><input type="radio" name="pay" value="cod"> Pouzeće</label>
         <label class="radio"><input type="radio" name="pay" value="bank"> Uplata na račun</label>
+        <label class="radio"><input type="radio" name="pay" value="pickup"> Osobno preuzimanje u trgovini</label>
         <div class="card-mock" id="cardMock">
           <input disabled placeholder="Broj kartice">
           <div class="two"><input disabled placeholder="MM/GG"><input disabled placeholder="CVC"></div>
@@ -108,10 +166,6 @@
       <button class="btn primary" data-close>Nastavi kupovinu</button>
     </div>
   </dialog>
-
-  <footer class="foot muted small">
-    <span id="footName"></span> · <a href="admin.html">Administracija</a>
-  </footer>
 
   <script type="module" src="js/shop.js"></script>
 </body>

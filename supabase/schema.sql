@@ -17,6 +17,20 @@ create table if not exists public.products (
   updated_at  timestamptz not null default now()
 );
 
+-- ---------- Kategorije (grupa → podkategorija) ----------
+create table if not exists public.categories (
+  id         uuid primary key default gen_random_uuid(),
+  parent_id  uuid references public.categories(id) on delete cascade,
+  name       text not null check (char_length(name) between 1 and 120),
+  slug       text not null unique,
+  sort_order integer not null default 0
+);
+
+alter table public.products add column if not exists category_id uuid references public.categories(id) on delete set null;
+alter table public.products add column if not exists brand text not null default '';
+alter table public.products add column if not exists old_price numeric(10,2) check (old_price is null or old_price >= 0);
+create index if not exists products_category_idx on public.products(category_id);
+
 create or replace function public.touch_updated_at()
 returns trigger language plpgsql as $$
 begin
@@ -46,6 +60,13 @@ grant execute on function public.is_admin() to anon, authenticated;
 -- ---------- Sigurnosna pravila (Row Level Security) ----------
 alter table public.products enable row level security;
 alter table public.admins   enable row level security;
+alter table public.categories enable row level security;
+
+drop policy if exists "categories_read"  on public.categories;
+drop policy if exists "categories_write" on public.categories;
+create policy "categories_read" on public.categories for select using (true);
+create policy "categories_write" on public.categories for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
 
 drop policy if exists "products_read"   on public.products;
 drop policy if exists "products_insert" on public.products;
